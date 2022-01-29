@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 using UnityEngine.UI;
@@ -20,35 +21,41 @@ public class BlackMarketUI : MonoBehaviour
     public GameObject buttonPromptText;
     public GameObject mainCamera;
     public CharacterAccessoryHandler characterAccessoryHandler;
+    public Key openKey;
+    public Key closeKey;
 
     [Space(10)]
     [Header("Browser buttons")]
     public Button armButton;
-    public int armsForSale = 2;
-    public int armValue = 10;
+    public int armsForSale;
+    public int armValue;
 
     [Space(10)]
     public Button legButton;
-    public int legsForSale = 2;
-    public int legValue = 10;
+    public int legsForSale;
+    public int legValue;
 
     [Space(10)]
     public Button headButton;
-    public int headsForSale = 1;
-    public int headValue = 30;
+    public int headsForSale;
+    public int headValue;
 
     [Space(10)]
     public Button relativeButton;
-    public int relativesForSale = 1;
-    public int relativeValue = 100;
+    public int relativesForSale;
+    public int relativeValue;
 
     // Start is called before the first frame update
     void Start()
     {
         armButton.onClick.AddListener(armClick);
+        armButton.GetComponentInChildren<TextMeshProUGUI>().text = "Arm\n" + HudScript.CoinsToText(armValue) + " HBC";
         legButton.onClick.AddListener(legClick);
+        legButton.GetComponentInChildren<TextMeshProUGUI>().text = "Leg\n" + HudScript.CoinsToText(legValue) + " HBC";
         headButton.onClick.AddListener(headClick);
+        headButton.GetComponentInChildren<TextMeshProUGUI>().text = "Head\n" + HudScript.CoinsToText(headValue) + " HBC";
         relativeButton.onClick.AddListener(relativeClick);
+        relativeButton.GetComponentInChildren<TextMeshProUGUI>().text = "Granny\n" + HudScript.CoinsToText(relativeValue) + " HBC";
 
         if (!checkAll())
         {
@@ -122,7 +129,6 @@ public class BlackMarketUI : MonoBehaviour
 
     private void relativeClick()
     {
-        var cah = GetComponent<CharacterAccessoryHandler>();
         if (relativesForSale > 0)
         {
             relativesForSale--;
@@ -138,6 +144,7 @@ public class BlackMarketUI : MonoBehaviour
     {
         if (!checkAll())
         {
+            Debug.LogError("Black market ref error");
             return;
         }
 
@@ -153,7 +160,7 @@ public class BlackMarketUI : MonoBehaviour
                 BrowserUpdate();
                 break;
             default:
-                Debug.Log("Invalid BlackMarketUI.UIState");
+                Debug.LogError("Invalid BlackMarketUI.UIState");
                 break;
         }
     }
@@ -180,8 +187,7 @@ public class BlackMarketUI : MonoBehaviour
             return;
         }
 
-        RaycastHit hit;
-        if (Physics.Raycast(mainCamera.transform.position, transform.forward, out hit, maxRaycastDistance))
+        if (Physics.Raycast(mainCamera.transform.position, transform.forward, out RaycastHit hit, maxRaycastDistance))
         {
             if (hit.collider != null)
             {
@@ -203,7 +209,7 @@ public class BlackMarketUI : MonoBehaviour
             return;
         }
 
-        if (readActionKey())
+        if (readKey(openKey))
         {
             setState(UIState.Browser);
         }
@@ -218,26 +224,28 @@ public class BlackMarketUI : MonoBehaviour
             return;
         }
 
-        if (readActionKey())
+        if (readKey(closeKey))
         {
             setState(UIState.Off);
         }
     }
 
-    private bool readActionKey()
+    private bool readKey(Key key)
     {
         var keyboard = Keyboard.current;
         if (keyboard == null)
         {
+            Debug.LogError("current keyboard is null");
             return false;
         }
-        return keyboard.fKey.wasPressedThisFrame;
+        return keyboard[key].wasPressedThisFrame;
     }
 
     private void setButtonPromt(bool value)
     {
         if (!checkAll())
         {
+            Debug.LogError("Black market ref error");
             return;
         }
         if (buttonPromptText.activeInHierarchy == value)
@@ -251,6 +259,7 @@ public class BlackMarketUI : MonoBehaviour
     {
         if (!checkAll())
         {
+            Debug.LogError("Black market ref error");
             return;
         }
         if (browser.activeInHierarchy == value)
@@ -291,7 +300,7 @@ public class BlackMarketUI : MonoBehaviour
                 setBrowser(true);
                 break;
             default:
-                Debug.Log("Invalid BlackMarketUI.UIState");
+                Debug.LogError("Invalid BlackMarketUI.UIState");
                 break;
         }
         currentState = newState;

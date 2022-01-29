@@ -568,7 +568,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Select plan with mouse          Press F to close
+  m_text: Select plan with mouse          Press Q to close
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1496,18 +1496,20 @@ MonoBehaviour:
   buttonPromptText: {fileID: 3286187894040221771}
   mainCamera: {fileID: 0}
   characterAccessoryHandler: {fileID: 0}
+  openKey: 20
+  closeKey: 31
   armButton: {fileID: 2084354643265747090}
   armsForSale: 2
-  armValue: 10
+  armValue: 11
   legButton: {fileID: 6674416219134335964}
   legsForSale: 2
-  legValue: 10
+  legValue: 12
   headButton: {fileID: 827171844982822693}
   headsForSale: 1
-  headValue: 30
+  headValue: 33
   relativeButton: {fileID: 2028004023557628865}
   relativesForSale: 1
-  relativeValue: 100
+  relativeValue: 112
 --- !u!1 &7334177433541432362
 GameObject:
   m_ObjectHideFlags: 0

@@ -15,7 +15,7 @@ public class HudScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -32,22 +32,25 @@ public class HudScript : MonoBehaviour
     {
         if (!CheckAll())
         {
-            Debug.Log("Broken ref in HUD script");
+            Debug.LogError("Broken ref in HUD script");
             return;
         }
+        currentMoney += amount;
 
         //TODO: check for negative balance
-        currentMoney += amount;
-        string moneyText;
+        hudMoneyText.text = CoinsToText(currentMoney) + " Hubocoins";
+    }
+
+    public static string CoinsToText(int coins)
+    {
         if (currencyMultiplier.Equals(1f))
         {
-            moneyText = currentMoney.ToString();
-        } else
-        {
-            moneyText = (currentMoney * currencyMultiplier).ToString("F2");
+            return coins.ToString();
         }
-
-        hudMoneyText.text = moneyText + " Hubocoins";
+        else
+        {
+            return (coins * currencyMultiplier).ToString("F2");
+        }
     }
 
     private bool CheckAll()
