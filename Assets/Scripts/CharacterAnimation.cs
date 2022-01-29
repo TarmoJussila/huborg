@@ -1,13 +1,12 @@
 using StarterAssets;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class CharacterAnimation : MonoBehaviour
 {
     [SerializeField] private FirstPersonController controller;
-
     [SerializeField] private Transform leftLeg;
     [SerializeField] private Transform rightLeg;
-
     [SerializeField] private Transform leftArm;
     [SerializeField] private Transform rightArm;
 
@@ -16,13 +15,42 @@ public class CharacterAnimation : MonoBehaviour
     private readonly float armRotationOffset = 70f;
     private readonly float movementSpeedMultiplier = 2f;
     private readonly float decelerationSpeedMultiplier = 3f;
+    private readonly float armGestureSpeedMultiplier = 0.8f;
+    private readonly float armGestureAngle = 75f;
 
     private float currentLegAngle;
-    private float currentArmAngle;
+    private float currentLeftArmAngle;
+    private float currentRightArmAngle;
     private float currentMovementTimer;
     private float currentSpeedMultiplier;
 
+    private bool isShowingLeftArmGesture;
+    private bool isShowingRightArmGesture;
+    private float currentLeftArmGestureTimer;
+    private float currentRightArmGestureTimer;
+
     private void Update()
+    {
+        UpdateInput();
+        UpdateAnimations();
+    }
+
+    private void UpdateInput()
+    {
+        var keyboardInput = Keyboard.current;
+
+        if (keyboardInput != null && keyboardInput.lKey.wasPressedThisFrame)
+        {
+            ToggleLeftArmGesture(!isShowingLeftArmGesture);
+        }
+
+        if (keyboardInput != null && keyboardInput.rKey.wasPressedThisFrame)
+        {
+            ToggleRightArmGesture(!isShowingRightArmGesture);
+        }
+    }
+
+    private void UpdateAnimations()
     {
         if (controller.Speed > 0f)
         {
@@ -44,12 +72,60 @@ public class CharacterAnimation : MonoBehaviour
         }
 
         currentLegAngle = Mathf.Cos(currentMovementTimer) * legMovementAngle * currentSpeedMultiplier;
-        currentArmAngle = Mathf.Cos(currentMovementTimer) * armMovementAngle * currentSpeedMultiplier;
+
+        if (!isShowingLeftArmGesture)
+        {
+            currentLeftArmAngle = Mathf.Cos(currentMovementTimer) * armMovementAngle * currentSpeedMultiplier;
+        }
+        else
+        {
+            if (currentLeftArmGestureTimer < 1f)
+            {
+                currentLeftArmGestureTimer += Time.deltaTime * armGestureSpeedMultiplier;
+                currentLeftArmGestureTimer = Mathf.Min(currentLeftArmGestureTimer, 1f);
+            }
+
+            currentLeftArmAngle = Mathf.Lerp(currentLeftArmAngle, armGestureAngle, currentLeftArmGestureTimer);
+        }
+
+        if (!isShowingRightArmGesture)
+        {
+            currentRightArmAngle = Mathf.Cos(currentMovementTimer) * armMovementAngle * currentSpeedMultiplier;
+        }
+        else
+        {
+            if (currentRightArmGestureTimer < 1f)
+            {
+                currentRightArmGestureTimer += Time.deltaTime * armGestureSpeedMultiplier;
+                currentRightArmGestureTimer = Mathf.Min(currentRightArmGestureTimer, 1f);
+            }
+
+            currentRightArmAngle = Mathf.Lerp(currentRightArmAngle, -armGestureAngle, currentRightArmGestureTimer);
+        }
 
         leftLeg.localRotation = Quaternion.Euler(currentLegAngle, leftLeg.localRotation.eulerAngles.y, leftLeg.localRotation.eulerAngles.z);
         rightLeg.localRotation = Quaternion.Euler(-currentLegAngle, rightLeg.localRotation.eulerAngles.y, rightLeg.localRotation.eulerAngles.z);
+        leftArm.localRotation = Quaternion.Euler(leftArm.localRotation.eulerAngles.x, leftArm.localRotation.eulerAngles.y, armRotationOffset - currentLeftArmAngle);
+        rightArm.localRotation = Quaternion.Euler(rightArm.localRotation.eulerAngles.x, rightArm.localRotation.eulerAngles.y, -armRotationOffset - currentRightArmAngle);
+    }
 
-        leftArm.localRotation = Quaternion.Euler(leftArm.localRotation.eulerAngles.x, leftArm.localRotation.eulerAngles.y, armRotationOffset - currentArmAngle);
-        rightArm.localRotation = Quaternion.Euler(rightArm.localRotation.eulerAngles.x, rightArm.localRotation.eulerAngles.y, -armRotationOffset - currentArmAngle);
+    public void ToggleLeftArmGesture(bool toggle)
+    {
+        isShowingLeftArmGesture = toggle;
+
+        if (!toggle)
+        {
+            currentLeftArmGestureTimer = 0f;
+        }
+    }
+
+    public void ToggleRightArmGesture(bool toggle)
+    {
+        isShowingRightArmGesture = toggle;
+
+        if (!toggle)
+        {
+            currentRightArmGestureTimer = 0f;
+        }
     }
 }
