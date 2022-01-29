@@ -52,6 +52,10 @@ namespace StarterAssets
 		public float TopClamp = 90.0f;
 		[Tooltip("How far in degrees can you move the camera down")]
 		public float BottomClamp = -90.0f;
+		
+		[Space(10)]
+		[Header("Custom values")]
+		public BlackMarketUI blackMarketUI;
 
 		// cinemachine
 		private float _cinemachineTargetPitch;
@@ -116,6 +120,12 @@ namespace StarterAssets
 
 		private void CameraRotation()
 		{
+			if (BlackMarketUICheck())
+			{
+				CinemachineCameraTarget.transform.localRotation = Quaternion.Euler(30f, 0.0f, 0.0f);
+				return;
+			}
+
 			// if there is an input
 			if (_input.look.sqrMagnitude >= _threshold)
 			{
@@ -138,6 +148,11 @@ namespace StarterAssets
 
 		private void Move()
 		{
+			if (BlackMarketUICheck())
+            {
+				return;
+            }
+
 			// set target speed based on move speed, sprint speed and if sprint is pressed
 			float targetSpeed = _input.sprint ? SprintSpeed : MoveSpeed;
 
@@ -248,6 +263,15 @@ namespace StarterAssets
 
 			// when selected, draw a gizmo in the position of, and matching radius of, the grounded collider
 			Gizmos.DrawSphere(new Vector3(transform.position.x, transform.position.y - GroundedOffset, transform.position.z), GroundedRadius);
+		}
+
+		private bool BlackMarketUICheck()
+        {
+			if (blackMarketUI != null)
+			{
+				return blackMarketUI.FreezeMovement();
+			}
+			return false;
 		}
 	}
 }

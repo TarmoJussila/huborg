@@ -22,7 +22,7 @@ public class BlackMarketUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -48,6 +48,15 @@ public class BlackMarketUI : MonoBehaviour
                 Debug.Log("Invalid BlackMarketUI.UIState");
                 break;
         }
+    }
+
+    /// <summary>
+    /// Player shouldn't move around when the browser window is open
+    /// </summary>
+    /// <returns></returns>
+    public bool FreezeMovement()
+    {
+        return currentState == UIState.Browser;
     }
 
     private void OffUpdate()
@@ -141,6 +150,8 @@ public class BlackMarketUI : MonoBehaviour
             return;
         }
         browser.SetActive(value);
+        Cursor.visible = value;
+        Cursor.lockState = value ? CursorLockMode.Confined : CursorLockMode.None;
     }
 
     private bool checkAll()
@@ -155,7 +166,7 @@ public class BlackMarketUI : MonoBehaviour
             return;
         }
 
-        switch(newState)
+        switch (newState)
         {
             case UIState.Off:
                 setButtonPromt(false);
