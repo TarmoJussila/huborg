@@ -150,6 +150,8 @@ public class BlackMarketUI : MonoBehaviour
             return;
         }
         browser.SetActive(value);
+        Cursor.visible = value;
+        Cursor.lockState = value ? CursorLockMode.Confined : CursorLockMode.None;
     }
 
     private bool checkAll()
