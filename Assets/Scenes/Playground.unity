@@ -10704,6 +10704,17 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35d2db4895733fa439f594ace2936962, type: 3}
+--- !u!114 &2010853387 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 648442500, guid: 35d2db4895733fa439f594ace2936962, type: 3}
+  m_PrefabInstance: {fileID: 2010853386}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 087e12806668d164698f6eef3a4bfeb2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!43 &2013037609
 Mesh:
   m_ObjectHideFlags: 0
@@ -14125,6 +14136,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 209523478}
     m_Modifications:
+    - target: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
+      propertyPath: blackMarketUI
+      value: 
+      objectReference: {fileID: 2010853387}
     - target: {fileID: 8616685848737228372, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: m_Name
       value: PlayerCapsule
