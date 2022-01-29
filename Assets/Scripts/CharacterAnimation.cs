@@ -12,15 +12,11 @@ public class CharacterAnimation : MonoBehaviour
     [SerializeField] private Transform rightArm;
 
     private readonly float legMovementAngle = 20f;
-    private readonly float armMovementAngle = 20f;
-    private readonly float movementSpeedMultiplier = 5f;
+    private readonly float armMovementAngle = 60f;
+    private readonly float armRotationOffset = 70f;
+    private readonly float movementSpeedMultiplier = 2f;
 
     private float timer;
-
-    private void Start()
-    {
-
-    }
 
     private void Update()
     {
@@ -31,11 +27,11 @@ public class CharacterAnimation : MonoBehaviour
             var legAngle = Mathf.Cos(timer) * legMovementAngle;
             var armAngle = Mathf.Cos(timer) * armMovementAngle;
 
-            leftLeg.localRotation = Quaternion.Euler(legAngle, leftLeg.localRotation.y, leftLeg.localRotation.z);
-            rightLeg.localRotation = Quaternion.Euler(-legAngle, rightLeg.localRotation.y, rightLeg.localRotation.z);
+            leftLeg.localRotation = Quaternion.Euler(legAngle, leftLeg.localRotation.eulerAngles.y, leftLeg.localRotation.eulerAngles.z);
+            rightLeg.localRotation = Quaternion.Euler(-legAngle, rightLeg.localRotation.eulerAngles.y, rightLeg.localRotation.eulerAngles.z);
 
-            leftArm.localRotation = Quaternion.Euler(armAngle, leftArm.localRotation.y, leftArm.localRotation.z);
-            rightArm.localRotation = Quaternion.Euler(-armAngle, rightArm.localRotation.y, rightArm.localRotation.z);
+            leftArm.localRotation = Quaternion.Euler(leftArm.localRotation.eulerAngles.x, leftArm.localRotation.eulerAngles.y, armRotationOffset - armAngle);
+            rightArm.localRotation = Quaternion.Euler(rightArm.localRotation.eulerAngles.x, rightArm.localRotation.eulerAngles.y, -armRotationOffset - armAngle);
         }
     }
 }
