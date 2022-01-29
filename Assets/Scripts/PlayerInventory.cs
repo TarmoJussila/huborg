@@ -88,7 +88,7 @@ public class PlayerInventory : MonoBehaviour
 
     private void Throw()
     {
-        if (equippedItem.GetComponent<PickableObject>().Type != PickableObject.ObjectType.EmptyHand)
+        if (equippedItem != null && equippedItem.GetComponent<PickableObject>().Type != PickableObject.ObjectType.EmptyHand)
         {
             Debug.Log("THROW");
 
