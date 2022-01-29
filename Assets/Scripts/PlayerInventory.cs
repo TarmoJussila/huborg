@@ -138,9 +138,11 @@ public class PlayerInventory : MonoBehaviour
 
     private void PickUpItem(GameObject gameObject)
     {
-        gameObject.SetActive(false);
+        //gameObject.SetActive(false);
         var pickableObject = gameObject.GetComponent<PickableObject>();
         pickableObject.IsPicked = true;
         playerItems.Add(gameObject.GetComponent<PickableObject>());
+        equippedItemIndex = playerItems.Count - 1;
+        EquipItem();
     }
 }
