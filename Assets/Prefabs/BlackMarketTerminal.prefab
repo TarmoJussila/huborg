@@ -1495,6 +1495,7 @@ MonoBehaviour:
   browser: {fileID: 755993756}
   buttonPromptText: {fileID: 3286187894040221771}
   mainCamera: {fileID: 0}
+  characterAccessoryHandler: {fileID: 0}
   armButton: {fileID: 2084354643265747090}
   armsForSale: 2
   armValue: 10

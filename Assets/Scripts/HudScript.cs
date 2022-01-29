@@ -41,15 +41,13 @@ public class HudScript : MonoBehaviour
         string moneyText;
         if (currencyMultiplier.Equals(1f))
         {
-            Debug.Log("1");
             moneyText = currentMoney.ToString();
         } else
         {
-            Debug.Log("2");
             moneyText = (currentMoney * currencyMultiplier).ToString("F2");
         }
 
-        hudMoneyText.text = moneyText + " Hubcoins";
+        hudMoneyText.text = moneyText + " Hubocoins";
     }
 
     private bool CheckAll()

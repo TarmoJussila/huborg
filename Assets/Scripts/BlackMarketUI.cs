@@ -19,6 +19,7 @@ public class BlackMarketUI : MonoBehaviour
     public GameObject browser;
     public GameObject buttonPromptText;
     public GameObject mainCamera;
+    public CharacterAccessoryHandler characterAccessoryHandler;
 
     [Space(10)]
     [Header("Browser buttons")]
@@ -44,15 +45,16 @@ public class BlackMarketUI : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if (!checkAll())
-        {
-            Debug.Log("Black market ref error");
-            return;
-        }
         armButton.onClick.AddListener(armClick);
         legButton.onClick.AddListener(legClick);
         headButton.onClick.AddListener(headClick);
         relativeButton.onClick.AddListener(relativeClick);
+
+        if (!checkAll())
+        {
+            Debug.LogError("Black market ref error");
+            return;
+        }
     }
 
     private void armClick()
@@ -61,7 +63,22 @@ public class BlackMarketUI : MonoBehaviour
         {
             armsForSale--;
             mainCamera.GetComponent<HudScript>().AddMoney(armValue);
-            //TODO: enable robo part
+
+            if (armsForSale == 1)
+            {
+                characterAccessoryHandler.ToggleRightArmAccessory(true);
+                characterAccessoryHandler.ToggleLeftArmAccessory(false);
+            }
+            else if (armsForSale <= 0)
+            {
+                characterAccessoryHandler.ToggleRightArmAccessory(true);
+                characterAccessoryHandler.ToggleLeftArmAccessory(true);
+            }
+            else
+            {
+                characterAccessoryHandler.ToggleRightArmAccessory(false);
+                characterAccessoryHandler.ToggleLeftArmAccessory(false);
+            }
         }
         armButton.interactable = armsForSale > 0;
     }
@@ -72,7 +89,22 @@ public class BlackMarketUI : MonoBehaviour
         {
             legsForSale--;
             mainCamera.GetComponent<HudScript>().AddMoney(legValue);
-            //TODO: enable robo part
+
+            if (legsForSale == 1)
+            {
+                characterAccessoryHandler.ToggleRightLegAccessory(true);
+                characterAccessoryHandler.ToggleLeftLegAccessory(false);
+            }
+            else if (legsForSale <= 0)
+            {
+                characterAccessoryHandler.ToggleRightLegAccessory(true);
+                characterAccessoryHandler.ToggleLeftLegAccessory(true);
+            }
+            else
+            {
+                characterAccessoryHandler.ToggleRightLegAccessory(false);
+                characterAccessoryHandler.ToggleLeftLegAccessory(false);
+            }
         }
         legButton.interactable = legsForSale > 0;
     }
@@ -83,18 +115,20 @@ public class BlackMarketUI : MonoBehaviour
         {
             headsForSale--;
             mainCamera.GetComponent<HudScript>().AddMoney(headValue);
-            //TODO: enable robo part
+            characterAccessoryHandler.ToggleHeadAccessory(true);
         }
         headButton.interactable = headsForSale > 0;
     }
 
     private void relativeClick()
     {
+        var cah = GetComponent<CharacterAccessoryHandler>();
         if (relativesForSale > 0)
         {
             relativesForSale--;
             mainCamera.GetComponent<HudScript>().AddMoney(relativeValue);
-            //TODO: enable robo part
+            //TODO: sold granny, what now
+            Debug.Log("Granny sold!");
         }
         relativeButton.interactable = relativesForSale > 0;
     }
@@ -231,7 +265,8 @@ public class BlackMarketUI : MonoBehaviour
     private bool checkAll()
     {
         return browser != null && buttonPromptText != null && mainCamera != null
-            && armButton != null && legButton != null && headButton != null && relativeButton != null;
+            && armButton != null && legButton != null && headButton != null
+            && relativeButton != null && characterAccessoryHandler != null;
     }
 
     private void setState(UIState newState)
