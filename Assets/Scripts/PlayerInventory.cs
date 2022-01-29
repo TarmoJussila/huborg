@@ -12,6 +12,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private int equippedItemIndex = 0;
     [SerializeField] private Transform equippedItemParent;
     [SerializeField] private Transform throwItemParent;
+    [SerializeField] private CharacterAnimation characterAnimation;
     // Start is called before the first frame update
     void Start()
     {
@@ -30,7 +31,9 @@ public class PlayerInventory : MonoBehaviour
         equippedItemIndex = equippedItemIndex < playerItems.Count ? equippedItemIndex : 0;
         equippedItem = playerItems[equippedItemIndex];
 
-        if (equippedItem.Type != PickableObject.ObjectType.EmptyHand)
+        bool isEmptyHand = equippedItem.Type == PickableObject.ObjectType.EmptyHand;
+
+        if (!isEmptyHand)
         {
             equippedItem.transform.SetParent(equippedItemParent);
             equippedItem.transform.localPosition = Vector3.zero;
@@ -42,6 +45,7 @@ public class PlayerInventory : MonoBehaviour
             }
             equippedItem.gameObject.SetActive(true);
         }
+        characterAnimation.ToggleRightArmGesture(!isEmptyHand);
     }
 
     private void FixedUpdate()

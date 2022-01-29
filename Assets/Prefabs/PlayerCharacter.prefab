@@ -320,6 +320,7 @@ MonoBehaviour:
   equippedItemIndex: 0
   equippedItemParent: {fileID: 7985422657434484240}
   throwItemParent: {fileID: 0}
+  characterAnimation: {fileID: 1363190580715801268}
 --- !u!1001 &7985422657434411302
 PrefabInstance:
   m_ObjectHideFlags: 0
