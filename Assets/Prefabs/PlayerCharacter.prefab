@@ -46,6 +46,7 @@ GameObject:
   - component: {fileID: 5420857361349278248}
   - component: {fileID: 8616685848737228376}
   - component: {fileID: 1363190580715801268}
+  - component: {fileID: 6134214355501180414}
   m_Layer: 8
   m_Name: PlayerCharacter
   m_TagString: Player
@@ -269,6 +270,23 @@ MonoBehaviour:
   rightLeg: {fileID: 7985422657434486328}
   leftArm: {fileID: 7985422657434454034}
   rightArm: {fileID: 7985422657434452624}
+--- !u!114 &6134214355501180414
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8616685848737228372}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 379bb5c362990394f9b337b05a839749, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  playerItems: []
+  raycastOrigin: {fileID: 0}
+  equippedItem: {fileID: 0}
+  equippedItemIndex: 0
+  equippedItemParent: {fileID: 7985422657434484240}
 --- !u!1001 &7985422657434411302
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -411,6 +429,11 @@ Transform:
 --- !u!4 &7985422657434455218 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 486804, guid: 5a496f6cfe5eb124f9d78d7207863200, type: 3}
+  m_PrefabInstance: {fileID: 7985422657434411302}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &7985422657434484240 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 466742, guid: 5a496f6cfe5eb124f9d78d7207863200, type: 3}
   m_PrefabInstance: {fileID: 7985422657434411302}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &7985422657434486328 stripped
