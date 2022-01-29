@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.UI;
 
 public class BlackMarketUI : MonoBehaviour
 {
@@ -19,10 +20,83 @@ public class BlackMarketUI : MonoBehaviour
     public GameObject buttonPromptText;
     public GameObject mainCamera;
 
+    [Space(10)]
+    [Header("Browser buttons")]
+    public Button armButton;
+    public int armsForSale = 2;
+    public int armValue = 10;
+
+    [Space(10)]
+    public Button legButton;
+    public int legsForSale = 2;
+    public int legValue = 10;
+
+    [Space(10)]
+    public Button headButton;
+    public int headsForSale = 1;
+    public int headValue = 30;
+
+    [Space(10)]
+    public Button relativeButton;
+    public int relativesForSale = 1;
+    public int relativeValue = 100;
+
     // Start is called before the first frame update
     void Start()
     {
+        if (!checkAll())
+        {
+            Debug.Log("Black market ref error");
+            return;
+        }
+        armButton.onClick.AddListener(armClick);
+        legButton.onClick.AddListener(legClick);
+        headButton.onClick.AddListener(headClick);
+        relativeButton.onClick.AddListener(relativeClick);
+    }
 
+    private void armClick()
+    {
+        if (armsForSale > 0)
+        {
+            armsForSale--;
+            mainCamera.GetComponent<HudScript>().AddMoney(armValue);
+            //TODO: enable robo part
+        }
+        armButton.interactable = armsForSale > 0;
+    }
+
+    private void legClick()
+    {
+        if (legsForSale > 0)
+        {
+            legsForSale--;
+            mainCamera.GetComponent<HudScript>().AddMoney(legValue);
+            //TODO: enable robo part
+        }
+        legButton.interactable = legsForSale > 0;
+    }
+
+    private void headClick()
+    {
+        if (headsForSale > 0)
+        {
+            headsForSale--;
+            mainCamera.GetComponent<HudScript>().AddMoney(headValue);
+            //TODO: enable robo part
+        }
+        headButton.interactable = headsForSale > 0;
+    }
+
+    private void relativeClick()
+    {
+        if (relativesForSale > 0)
+        {
+            relativesForSale--;
+            mainCamera.GetComponent<HudScript>().AddMoney(relativeValue);
+            //TODO: enable robo part
+        }
+        relativeButton.interactable = relativesForSale > 0;
     }
 
     // Update is called once per frame
@@ -156,7 +230,8 @@ public class BlackMarketUI : MonoBehaviour
 
     private bool checkAll()
     {
-        return browser != null && buttonPromptText != null && mainCamera != null;
+        return browser != null && buttonPromptText != null && mainCamera != null
+            && armButton != null && legButton != null && headButton != null && relativeButton != null;
     }
 
     private void setState(UIState newState)
