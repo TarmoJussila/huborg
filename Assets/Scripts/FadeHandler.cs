@@ -9,7 +9,7 @@ public class FadeHandler : MonoBehaviour
     private readonly float defaultIntensity = 0.2f;
     private readonly float maxIntensity = 1.0f;
     private readonly float transitionSpeedMultiplier = 0.5f;
-    private readonly float transitionReturnDelay = 3f;
+    private readonly float transitionReturnDelay = 5f;
 
     private float timer;
     private Coroutine fadeCoroutine = null;
@@ -57,8 +57,8 @@ public class FadeHandler : MonoBehaviour
         while (timer < 1f)
         {
             timer += Time.deltaTime * transitionSpeedMultiplier;
-            var vignetteIntensity = Mathf.Lerp(defaultIntensity, maxIntensity, timer);
-            fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, vignetteIntensity);
+            var intensity = Mathf.Lerp(defaultIntensity, maxIntensity, timer);
+            fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, intensity);
             yield return null;
         }
     }
@@ -69,8 +69,8 @@ public class FadeHandler : MonoBehaviour
         while (timer < 1f)
         {
             timer += Time.deltaTime * transitionSpeedMultiplier;
-            var vignetteIntensity = Mathf.Lerp(maxIntensity, defaultIntensity, timer);
-            fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, vignetteIntensity);
+            var intensity = Mathf.Lerp(maxIntensity, defaultIntensity, timer);
+            fadeImage.color = new Color(fadeImage.color.r, fadeImage.color.g, fadeImage.color.b, intensity);
             yield return null;
         }
     }
