@@ -13,8 +13,10 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private Transform equippedItemParent;
     [SerializeField] private Transform throwItemParent;
     [SerializeField] private CharacterAnimation characterAnimation;
-    // Start is called before the first frame update
-    void Start()
+
+    private readonly float maxRaycastDistance = 5f;
+
+    private void Start()
     {
         var hand = new PickableObject();
         hand.Type = PickableObject.ObjectType.EmptyHand;
@@ -53,7 +55,7 @@ public class PlayerInventory : MonoBehaviour
         RaycastHit hit;
         int layer = LayerMask.GetMask("PickableItems");
 
-        if (Physics.Raycast(raycastOrigin.position, raycastOrigin.TransformDirection(Vector3.forward), out hit, Mathf.Infinity, layer))
+        if (Physics.Raycast(raycastOrigin.position, raycastOrigin.TransformDirection(Vector3.forward), out hit, maxRaycastDistance, layer))
         {
             var pickableItem = hit.transform.GetComponent<PickableObject>();
             if (pickableItem && !pickableItem.IsPicked)
