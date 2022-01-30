@@ -14464,10 +14464,6 @@ PrefabInstance:
       propertyPath: throwItemParent
       value: 
       objectReference: {fileID: 2028521441}
-    - target: {fileID: 3917428309750631316, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
-      propertyPath: pickupAudioClip
-      value: 
-      objectReference: {fileID: 8300000, guid: f269a354374f63f4fb0be8817eb73b36, type: 3}
     - target: {fileID: 8616685848737228371, guid: c5efc39a8aaf6e64ea40e9ad573e9b47, type: 3}
       propertyPath: blackMarketUI
       value: 

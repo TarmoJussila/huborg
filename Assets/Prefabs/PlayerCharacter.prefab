@@ -348,7 +348,7 @@ MonoBehaviour:
   effectAudioSource: {fileID: 2725999079361787410}
   upgradeAudioClip: {fileID: 8300000, guid: 30149038ed8ee7b439ad3896a26f5c23, type: 3}
   relativeAudioClip: {fileID: 8300000, guid: 306d772304f02d641a5a06a5148116a2, type: 3}
-  footSteps: []
+  pickupAudioClip: {fileID: 8300000, guid: bc9e2190185d42c4e9fd127e1d38b142, type: 3}
 --- !u!114 &1951906877109617628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -370,6 +370,7 @@ MonoBehaviour:
   characterAnimation: {fileID: 1363190580715801268}
   pickupPrompt: {fileID: 0}
   hudScript: {fileID: 0}
+  characterAudio: {fileID: 0}
 --- !u!1001 &7985422657434411302
 PrefabInstance:
   m_ObjectHideFlags: 0
