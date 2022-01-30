@@ -1,5 +1,3 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
 public class HudScript : MonoBehaviour
@@ -11,18 +9,6 @@ public class HudScript : MonoBehaviour
 
     public int currentMoney = 0;
     public TMPro.TextMeshProUGUI hudMoneyText;
-
-    // Start is called before the first frame update
-    void Start()
-    {
-
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
 
     /// <summary>
     /// Add money
