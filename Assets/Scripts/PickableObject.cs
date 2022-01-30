@@ -7,7 +7,7 @@ public class PickableObject : MonoBehaviour
     public enum ObjectType
     {
         Default,
-        Pasta,
+        PeaSoup,
         Jauheliha,
         Lonkero,
         Money,

@@ -17,6 +17,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private TextMeshProUGUI pickupPrompt;
     [SerializeField] private HudScript hudScript;
     [SerializeField] private CharacterAudio characterAudio;
+    private bool grannyAlive = true;
 
     private readonly float maxRaycastDistance = 5f;
 
@@ -62,6 +63,7 @@ public class PlayerInventory : MonoBehaviour
         if (Physics.Raycast(raycastOrigin.position, raycastOrigin.TransformDirection(Vector3.forward), out hit, maxRaycastDistance, layer))
         {
             var pickableItem = hit.transform.GetComponent<PickableObject>();
+            var endingTrigger = hit.transform.GetComponent<EndingTrigger>();
             if (pickableItem && !pickableItem.IsPicked)
             {
                 Debug.DrawRay(raycastOrigin.position, raycastOrigin.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
@@ -75,6 +77,46 @@ public class PlayerInventory : MonoBehaviour
                 if (ReadActionKey())
                 {
                     PickUpItem(hit.transform.gameObject);
+                }
+            }
+            else if (endingTrigger)
+            {
+                pickupPrompt.text = "Press F to sleep";
+                if (ReadActionKey())
+                {
+                    bool hasPeaSoup = false;
+                    bool humanityCompromised = false;
+
+                    for (int i = 0; i < playerItems.Count; i++)
+                    {
+                        if (playerItems[i].Type == PickableObject.ObjectType.PeaSoup)
+                        {
+                            hasPeaSoup = true;
+                        }
+                        if (playerItems[i].Type == PickableObject.ObjectType.Jauheliha || playerItems[i].Type == PickableObject.ObjectType.Lonkero)
+                        {
+                            humanityCompromised = true;
+                        }
+                    }
+
+                    hudScript.GetComponent<FadeHandler>().FadeToBlack();
+
+                    if (playerItems.Count < 2)
+                    {
+                        hudScript.DisplayEndingText(HudScript.EndingState.StarvationEnding);
+                    }
+                    else if (hasPeaSoup && grannyAlive && !humanityCompromised)
+                    {
+                        hudScript.DisplayEndingText(HudScript.EndingState.MoralEnding);
+                    }
+                    else if (!grannyAlive || humanityCompromised)
+                    {
+                        hudScript.DisplayEndingText(HudScript.EndingState.ImmoralEnding);
+                    }
+                    else
+                    {
+                        hudScript.DisplayEndingText(HudScript.EndingState.StarvationEnding);
+                    }
                 }
             }
         }
@@ -175,6 +217,10 @@ public class PlayerInventory : MonoBehaviour
 
     public void RemoveItem(PickableObject item)
     {
+        if (item.Type == PickableObject.ObjectType.Granny)
+        {
+            grannyAlive = false;
+        }
         playerItems.Remove(item);
         equippedItemIndex = 0;
         equippedItem = null;
