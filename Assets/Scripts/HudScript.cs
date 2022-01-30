@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HudScript : MonoBehaviour
 {
@@ -10,9 +11,37 @@ public class HudScript : MonoBehaviour
     public float currentMoney = 0;
     public TMPro.TextMeshProUGUI hudMoneyText;
 
+    public float escHoldSeconds;
+    private float escHoldTime = 0;
+
     private void Start()
     {
         hudMoneyText.text = CoinsToText(currentMoney) + " Hubocoins";
+    }
+
+    private void Update()
+    {
+        var keyboard = Keyboard.current;
+        if (keyboard == null)
+        {
+            Debug.LogError("Current keyboard is null");
+            escHoldTime = 0;
+            return;
+        }
+        if (keyboard.escapeKey.isPressed)
+        {
+            escHoldTime += Time.deltaTime;
+        }
+        else
+        {
+            escHoldTime = 0;
+        }
+
+        if (escHoldTime > escHoldSeconds)
+        {
+            Debug.Log("Quitting application, ESC key hold down threshold reached");
+            Application.Quit();
+        }
     }
 
     /// <summary>

@@ -592,6 +592,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentMoney: 0
   hudMoneyText: {fileID: 592000325}
+  escHoldSeconds: 2
 --- !u!114 &2902360392136693795
 MonoBehaviour:
   m_ObjectHideFlags: 0
