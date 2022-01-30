@@ -87,17 +87,17 @@ public class HudScript : MonoBehaviour
         {
             case EndingState.StarvationEnding:
             {
-                endingText.text = "THE END" + System.Environment.NewLine + System.Environment.NewLine + "You died of starvation";
+                endingText.text = "THE END" + System.Environment.NewLine + System.Environment.NewLine + "You died of starvation" + System.Environment.NewLine + System.Environment.NewLine + "Hold ESC to quit";
                 break;
             }
             case EndingState.ImmoralEnding:
             {
-                endingText.text = "THE END" + System.Environment.NewLine + System.Environment.NewLine + "You went to sleep with a full stomach. But at what cost?";
+                endingText.text = "THE END" + System.Environment.NewLine + System.Environment.NewLine + "You went to sleep with a full stomach. But at what cost?" + System.Environment.NewLine + System.Environment.NewLine + "Hold ESC to quit";
                 break;
             }
             case EndingState.MoralEnding:
             {
-                endingText.text = "THE END" + System.Environment.NewLine + System.Environment.NewLine + "You were able to fill your stomach and keep your integrity intact";
+                endingText.text = "THE END" + System.Environment.NewLine + System.Environment.NewLine + "You were able to fill your stomach and keep your integrity intact" + System.Environment.NewLine + System.Environment.NewLine + "Hold ESC to quit";
                 break;
             }
             default:
