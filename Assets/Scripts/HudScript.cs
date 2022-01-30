@@ -17,7 +17,7 @@ public class HudScript : MonoBehaviour
 
     private void Start()
     {
-        hudMoneyText.text = CoinsToText(currentMoney) + " Hubocoins";
+        hudMoneyText.text = CoinsToText(currentMoney) + " HBC";
     }
 
     private void Update()
@@ -59,7 +59,7 @@ public class HudScript : MonoBehaviour
         currentMoney += amount;
 
         //TODO: check for negative balance
-        hudMoneyText.text = CoinsToText(currentMoney) + " Hubocoins";
+        hudMoneyText.text = CoinsToText(currentMoney) + " HBC";
     }
 
     public static string CoinsToText(float coins)
