@@ -28,7 +28,7 @@ public class CharacterAccessoryHandler : MonoBehaviour
 
         if (toggle && playSound)
         {
-            GetComponent<CharacterAudio>().PlayUpgradeAudioClip();
+            PlayAccessoryActivationEffects();
         }
     }
 
@@ -41,7 +41,7 @@ public class CharacterAccessoryHandler : MonoBehaviour
 
         if (toggle && playSound)
         {
-            GetComponent<CharacterAudio>().PlayUpgradeAudioClip();
+            PlayAccessoryActivationEffects();
         }
     }
 
@@ -54,7 +54,7 @@ public class CharacterAccessoryHandler : MonoBehaviour
 
         if (toggle && playSound)
         {
-            GetComponent<CharacterAudio>().PlayUpgradeAudioClip();
+            PlayAccessoryActivationEffects();
         }
     }
 
@@ -67,7 +67,7 @@ public class CharacterAccessoryHandler : MonoBehaviour
 
         if (toggle && playSound)
         {
-            GetComponent<CharacterAudio>().PlayUpgradeAudioClip();
+            PlayAccessoryActivationEffects();
         }
     }
 
@@ -80,7 +80,13 @@ public class CharacterAccessoryHandler : MonoBehaviour
 
         if (toggle && playSound)
         {
-            GetComponent<CharacterAudio>().PlayUpgradeAudioClip();
+            PlayAccessoryActivationEffects();
         }
+    }
+
+    private void PlayAccessoryActivationEffects()
+    {
+        GetComponent<CharacterAudio>().PlayUpgradeAudioClip();
+        Camera.main.GetComponent<FadeHandler>().FadeToBlackAndBackToDefault();
     }
 }
