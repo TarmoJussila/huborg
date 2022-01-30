@@ -7,7 +7,7 @@ using UnityEngine.InputSystem;
 
 public class PlayerInventory : MonoBehaviour
 {
-    [SerializeField] private List<PickableObject> playerItems;
+    public List<PickableObject> playerItems;
     [SerializeField] private Transform raycastOrigin;
     [SerializeField] private PickableObject equippedItem;
     [SerializeField] private int equippedItemIndex = 0;
@@ -16,6 +16,7 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private CharacterAnimation characterAnimation;
     [SerializeField] private TextMeshProUGUI pickupPrompt;
     [SerializeField] private HudScript hudScript;
+    [SerializeField] private CharacterAudio characterAudio;
 
     private readonly float maxRaycastDistance = 5f;
 
@@ -154,6 +155,7 @@ public class PlayerInventory : MonoBehaviour
         {
             item.SetActive(false);
             hudScript.AddMoney(pickableObject.Price);
+            characterAudio.PlayPickupAudioClip();
         }
         else
         {
@@ -165,8 +167,17 @@ public class PlayerInventory : MonoBehaviour
                 pickableObject.Price = 0f;
                 pickableObject.IsPicked = true;
                 playerItems.Add(item.GetComponent<PickableObject>());
+                characterAudio.PlayPickupAudioClip();
             }
-            Debug.Log("Not enough Hubocoins!");
+            //Debug.Log("Not enough Hubocoins!");
         }
+    }
+
+    public void RemoveItem(PickableObject item)
+    {
+        playerItems.Remove(item);
+        equippedItemIndex = 0;
+        equippedItem = null;
+        EquipItem();
     }
 }

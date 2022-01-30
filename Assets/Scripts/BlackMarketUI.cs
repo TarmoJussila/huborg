@@ -141,12 +141,28 @@ public class BlackMarketUI : MonoBehaviour
 
     private void relativeClick()
     {
-        if (relativesForSale > 0)
+        var playerInventory = characterAccessoryHandler.GetComponent<PlayerInventory>();
+        bool hasGranny = false;
+
+        for (int i = 0; i < playerInventory.playerItems.Count; i++)
+        {
+            if (playerInventory.playerItems[i].Type == PickableObject.ObjectType.Granny)
+            {
+                hasGranny = true;
+                playerInventory.playerItems[i].gameObject.SetActive(false);
+                playerInventory.RemoveItem(playerInventory.playerItems[i]);
+                break;
+            }
+            
+        }
+
+        if (relativesForSale > 0 && hasGranny)
         {
             relativesForSale--;
             mainCamera.GetComponent<HudScript>().AddMoney(relativeValue);
             //TODO: sold granny, what now
             Debug.Log("Granny sold!");
+            characterAccessoryHandler.RelativeSacrificed();
         }
         relativeButton.interactable = relativesForSale > 0;
     }

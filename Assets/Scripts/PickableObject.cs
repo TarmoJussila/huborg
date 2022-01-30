@@ -11,6 +11,7 @@ public class PickableObject : MonoBehaviour
         Jauheliha,
         Lonkero,
         Money,
+        Granny,
         EmptyHand
     }
 

@@ -317,6 +317,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   effectAudioSource: {fileID: 2725999079361787410}
   upgradeAudioClip: {fileID: 8300000, guid: 30149038ed8ee7b439ad3896a26f5c23, type: 3}
+  relativeAudioClip: {fileID: 8300000, guid: 306d772304f02d641a5a06a5148116a2, type: 3}
 --- !u!114 &1951906877109617628
 MonoBehaviour:
   m_ObjectHideFlags: 0
