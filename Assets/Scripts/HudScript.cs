@@ -1,5 +1,6 @@
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement;
 
 public class HudScript : MonoBehaviour
 {
@@ -39,8 +40,8 @@ public class HudScript : MonoBehaviour
 
         if (escHoldTime > escHoldSeconds)
         {
-            Debug.Log("Quitting application, ESC key hold down threshold reached");
-            Application.Quit();
+            Debug.Log("Loading scene: Playground");
+            SceneManager.LoadScene("MainMenu");
         }
     }
 
