@@ -56,7 +56,7 @@ public class CharacterAnimation : MonoBehaviour
     {
         if (controller.Speed > 0f)
         {
-            StepSound();
+            StepSound(controller.Speed);
             currentMovementTimer += Time.deltaTime * movementSpeedMultiplier * controller.Speed;
 
             if (currentSpeedMultiplier < 1f)
@@ -112,7 +112,7 @@ public class CharacterAnimation : MonoBehaviour
         rightArm.localRotation = Quaternion.Euler(rightArm.localRotation.eulerAngles.x, rightArm.localRotation.eulerAngles.y, -armRotationOffset - currentRightArmAngle);
     }
     
-    private void StepSound()
+    private void StepSound(float movementSpeed)
     {
         if (audioSource == null)
         {
@@ -124,7 +124,7 @@ public class CharacterAnimation : MonoBehaviour
         }
 
         int random = Random.Range(0, stepSounds.Length);
-        audioSource.PlayOneShot(stepSounds[random]);
+        audioSource.PlayOneShot(stepSounds[random], Mathf.Clamp01(movementSpeed));
     }
 
     public void ToggleLeftArmGesture(bool toggle)
