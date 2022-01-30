@@ -1,5 +1,3 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -55,7 +53,7 @@ public class PlayerInventory : MonoBehaviour
         characterAnimation.ToggleRightArmGesture(!isEmptyHand);
     }
 
-    private void FixedUpdate()
+    private void Update()
     {
         RaycastHit hit;
         int layer = LayerMask.GetMask("PickableItems");
@@ -124,10 +122,7 @@ public class PlayerInventory : MonoBehaviour
         {
             pickupPrompt.text = "";
         }
-    }
 
-    private void Update()
-    {
         if (ReadThrowKey())
         {
             Throw();
@@ -201,7 +196,6 @@ public class PlayerInventory : MonoBehaviour
         }
         else
         {
-
             if (hudScript.currentMoney >= pickableObject.Price)
             {
                 hudScript.AddMoney(-pickableObject.Price);
