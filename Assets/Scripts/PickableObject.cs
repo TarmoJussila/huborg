@@ -16,4 +16,5 @@ public class PickableObject : MonoBehaviour
 
     public ObjectType Type = ObjectType.Default;
     public bool IsPicked = false;
+    public float Price = 0f;
 }

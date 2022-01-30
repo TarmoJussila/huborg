@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.InputSystem;
 
@@ -13,6 +14,8 @@ public class PlayerInventory : MonoBehaviour
     [SerializeField] private Transform equippedItemParent;
     [SerializeField] private Transform throwItemParent;
     [SerializeField] private CharacterAnimation characterAnimation;
+    [SerializeField] private TextMeshProUGUI pickupPrompt;
+    [SerializeField] private HudScript hudScript;
 
     private readonly float maxRaycastDistance = 5f;
 
@@ -62,7 +65,12 @@ public class PlayerInventory : MonoBehaviour
             {
                 Debug.DrawRay(raycastOrigin.position, raycastOrigin.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
-                Debug.Log("Can pick: " + hit.transform.gameObject.name);
+                pickupPrompt.text = "Press F to pick up " + hit.transform.gameObject.name;
+                if (pickableItem.Price > 0)
+                {
+                    pickupPrompt.text = pickupPrompt.text + "\n" + "Price: " + pickableItem.Price.ToString("F2") + "HBC";
+                }
+
                 if (ReadActionKey())
                 {
                     PickUpItem(hit.transform.gameObject);
@@ -71,7 +79,7 @@ public class PlayerInventory : MonoBehaviour
         }
         else
         {
-            Debug.DrawRay(raycastOrigin.position, raycastOrigin.TransformDirection(Vector3.forward) * 1000, Color.white);
+            pickupPrompt.text = "";
         }
     }
 
@@ -140,9 +148,16 @@ public class PlayerInventory : MonoBehaviour
 
     private void PickUpItem(GameObject gameObject)
     {
-        gameObject.SetActive(false);
         var pickableObject = gameObject.GetComponent<PickableObject>();
-        pickableObject.IsPicked = true;
-        playerItems.Add(gameObject.GetComponent<PickableObject>());
+
+        if (hudScript.currentMoney >= pickableObject.Price)
+        {
+            hudScript.AddMoney(-pickableObject.Price);
+            gameObject.SetActive(false);
+            pickableObject.Price = 0f;
+            pickableObject.IsPicked = true;
+            playerItems.Add(gameObject.GetComponent<PickableObject>());
+        }
+        Debug.Log("Not enough Hubocoins!");
     }
 }

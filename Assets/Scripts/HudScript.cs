@@ -7,14 +7,19 @@ public class HudScript : MonoBehaviour
     /// </summary>
     public static float currencyMultiplier = 1f;
 
-    public int currentMoney = 0;
+    public float currentMoney = 0;
     public TMPro.TextMeshProUGUI hudMoneyText;
+
+    private void Start()
+    {
+        hudMoneyText.text = CoinsToText(currentMoney) + " Hubocoins";
+    }
 
     /// <summary>
     /// Add money
     /// </summary>
     /// <param name="amount">amount added, can be negative</param>
-    public void AddMoney(int amount)
+    public void AddMoney(float amount)
     {
         if (!CheckAll())
         {
@@ -27,11 +32,11 @@ public class HudScript : MonoBehaviour
         hudMoneyText.text = CoinsToText(currentMoney) + " Hubocoins";
     }
 
-    public static string CoinsToText(int coins)
+    public static string CoinsToText(float coins)
     {
         if (currencyMultiplier.Equals(1f))
         {
-            return coins.ToString();
+            return coins.ToString("F2");
         }
         else
         {
