@@ -336,6 +336,8 @@ MonoBehaviour:
   equippedItemParent: {fileID: 7985422657434484240}
   throwItemParent: {fileID: 0}
   characterAnimation: {fileID: 1363190580715801268}
+  pickupPrompt: {fileID: 0}
+  hudScript: {fileID: 0}
 --- !u!1001 &7985422657434411302
 PrefabInstance:
   m_ObjectHideFlags: 0

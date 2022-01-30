@@ -1,4 +1,5 @@
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class HudScript : MonoBehaviour
 {
@@ -7,14 +8,47 @@ public class HudScript : MonoBehaviour
     /// </summary>
     public static float currencyMultiplier = 1f;
 
-    public int currentMoney = 0;
+    public float currentMoney = 0;
     public TMPro.TextMeshProUGUI hudMoneyText;
+
+    public float escHoldSeconds;
+    private float escHoldTime = 0;
+
+    private void Start()
+    {
+        hudMoneyText.text = CoinsToText(currentMoney) + " Hubocoins";
+    }
+
+    private void Update()
+    {
+        var keyboard = Keyboard.current;
+        if (keyboard == null)
+        {
+            Debug.LogError("Current keyboard is null");
+            escHoldTime = 0;
+            return;
+        }
+        if (keyboard.escapeKey.isPressed)
+        {
+            escHoldTime += Time.deltaTime;
+        }
+        else
+        {
+            escHoldTime = 0;
+        }
+
+        if (escHoldTime > escHoldSeconds)
+        {
+            Debug.Log("Quitting application, ESC key hold down threshold reached");
+            Application.Quit();
+        }
+    }
 
     /// <summary>
     /// Add money
     /// </summary>
     /// <param name="amount">amount added, can be negative</param>
-    public void AddMoney(int amount)
+    public void AddMoney(float amount)
     {
         if (!CheckAll())
         {
@@ -27,11 +61,11 @@ public class HudScript : MonoBehaviour
         hudMoneyText.text = CoinsToText(currentMoney) + " Hubocoins";
     }
 
-    public static string CoinsToText(int coins)
+    public static string CoinsToText(float coins)
     {
         if (currencyMultiplier.Equals(1f))
         {
-            return coins.ToString();
+            return coins.ToString("F2");
         }
         else
         {
