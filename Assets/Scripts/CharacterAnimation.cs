@@ -9,6 +9,8 @@ public class CharacterAnimation : MonoBehaviour
     [SerializeField] private Transform rightLeg;
     [SerializeField] private Transform leftArm;
     [SerializeField] private Transform rightArm;
+    [SerializeField] private AudioClip[] stepSounds;
+    [SerializeField] private AudioSource audioSource;
 
     private readonly float legMovementAngle = 20f;
     private readonly float armMovementAngle = 60f;
@@ -54,6 +56,7 @@ public class CharacterAnimation : MonoBehaviour
     {
         if (controller.Speed > 0f)
         {
+            StepSound();
             currentMovementTimer += Time.deltaTime * movementSpeedMultiplier * controller.Speed;
 
             if (currentSpeedMultiplier < 1f)
@@ -107,6 +110,21 @@ public class CharacterAnimation : MonoBehaviour
         rightLeg.localRotation = Quaternion.Euler(-currentLegAngle, rightLeg.localRotation.eulerAngles.y, rightLeg.localRotation.eulerAngles.z);
         leftArm.localRotation = Quaternion.Euler(leftArm.localRotation.eulerAngles.x, leftArm.localRotation.eulerAngles.y, armRotationOffset - currentLeftArmAngle);
         rightArm.localRotation = Quaternion.Euler(rightArm.localRotation.eulerAngles.x, rightArm.localRotation.eulerAngles.y, -armRotationOffset - currentRightArmAngle);
+    }
+    
+    private void StepSound()
+    {
+        if (audioSource == null)
+        {
+            return;
+        }
+        if (audioSource.isPlaying)
+        {
+            return;
+        }
+
+        int random = Random.Range(0, stepSounds.Length);
+        audioSource.PlayOneShot(stepSounds[random]);
     }
 
     public void ToggleLeftArmGesture(bool toggle)
