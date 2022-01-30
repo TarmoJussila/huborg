@@ -25,8 +25,10 @@ The game was created with **Unity 2021.2.9f1**.
 | Move Right | D |
 | Pick Item / Interact | F |
 | Throw Item | G |
-| Swap Item | E |
+| Swap Item / Buy | E |
 | Stop Interaction | Q |
+| Select Payment Plan | 1 - 4 |
+| Exit Game | ESC (hold) |
 
 # Credits - Team Huborg
 
