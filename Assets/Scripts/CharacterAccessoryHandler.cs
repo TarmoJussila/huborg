@@ -84,6 +84,12 @@ public class CharacterAccessoryHandler : MonoBehaviour
         }
     }
 
+    public void RelativeSacrificed()
+    {
+        GetComponent<CharacterAudio>().PlayRelativeSacrificeAudioClip();
+        Camera.main.GetComponent<FadeHandler>().FadeToBlackAndBackToDefault();
+    }
+
     private void PlayAccessoryActivationEffects()
     {
         GetComponent<CharacterAudio>().PlayUpgradeAudioClip();

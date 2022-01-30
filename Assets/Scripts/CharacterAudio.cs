@@ -4,6 +4,8 @@ public class CharacterAudio : MonoBehaviour
 {
     [SerializeField] private AudioSource effectAudioSource;
     [SerializeField] private AudioClip upgradeAudioClip;
+    [SerializeField] private AudioClip relativeAudioClip;
+    [SerializeField] private AudioClip pickupAudioClip;
 
     private void PlaySoundEffect(AudioClip audioClip)
     {
@@ -13,5 +15,15 @@ public class CharacterAudio : MonoBehaviour
     public void PlayUpgradeAudioClip()
     {
         PlaySoundEffect(upgradeAudioClip);
+    }
+
+    public void PlayRelativeSacrificeAudioClip()
+    {
+        PlaySoundEffect(relativeAudioClip);
+    }
+
+    public void PlayPickupAudioClip()
+    {
+
     }
 }

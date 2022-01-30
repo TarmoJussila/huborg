@@ -413,8 +413,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9134230582fd0cd4cb67a79d440b281f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 5
   IsPicked: 0
+  Price: 600
 --- !u!1 &7599510610441558393
 GameObject:
   m_ObjectHideFlags: 0
