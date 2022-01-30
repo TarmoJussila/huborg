@@ -45,8 +45,19 @@ public class BlackMarketUI : MonoBehaviour
     public int relativesForSale;
     public int relativeValue;
 
+    public List<Image> selections;
+
+    private int currentSelectionId;
+
     private void Start()
     {
+        currentSelectionId = 0;
+        for (int i = 0; i < selections.Count; i++)
+        {
+            selections[i].enabled = false;
+        }
+        ChangeSelection(currentSelectionId);
+
         armButton.onClick.AddListener(armClick);
         armButton.GetComponentInChildren<TextMeshProUGUI>().text = "Arm\n" + HudScript.CoinsToText(armValue) + " HBC";
         legButton.onClick.AddListener(legClick);
@@ -225,7 +236,48 @@ public class BlackMarketUI : MonoBehaviour
         if (readKey(closeKey))
         {
             setState(UIState.Off);
+            return;
         }
+
+        if (readKey(openKey))
+        {
+            var button = selections[currentSelectionId].GetComponentInParent<Button>();
+            button.onClick.Invoke();
+            return;
+        }
+
+        if (readKey(Key.Digit1) || readKey(Key.Numpad1))
+        {
+            ChangeSelection(0);
+        }
+        else if (readKey(Key.Digit2) || readKey(Key.Numpad2))
+        {
+            ChangeSelection(1);
+        }
+        else if (readKey(Key.Digit3) || readKey(Key.Numpad3))
+        {
+            ChangeSelection(2);
+        }
+        else if (readKey(Key.Digit4) || readKey(Key.Numpad4))
+        {
+            ChangeSelection(3);
+        }
+    }
+
+    private void ChangeSelection(int selectionId)
+    {
+        if (selectionId < 0)
+        {
+            selectionId = 3;
+        }
+        else if (selectionId > 3)
+        {
+            selectionId = 0;
+        }
+
+        selections[currentSelectionId].enabled = false;
+        selections[selectionId].enabled = true;
+        currentSelectionId = selectionId;
     }
 
     private bool readKey(Key key)
