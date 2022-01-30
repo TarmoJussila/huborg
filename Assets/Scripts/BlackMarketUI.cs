@@ -23,6 +23,7 @@ public class BlackMarketUI : MonoBehaviour
     public CharacterAccessoryHandler characterAccessoryHandler;
     public Key openKey;
     public Key closeKey;
+    public Key selectKey;
 
     [Space(10)]
     [Header("Browser buttons")]
@@ -48,6 +49,7 @@ public class BlackMarketUI : MonoBehaviour
     public List<Image> selections;
 
     private int currentSelectionId;
+    private bool hasSelectedDuringSession = false;
 
     private void Start()
     {
@@ -239,11 +241,20 @@ public class BlackMarketUI : MonoBehaviour
             return;
         }
 
-        if (readKey(openKey))
+        if (readKey(selectKey))
         {
-            var button = selections[currentSelectionId].GetComponentInParent<Button>();
-            button.onClick.Invoke();
-            return;
+            if (hasSelectedDuringSession)
+            {
+                Debug.Log("Can't buy twice during one session!");
+            }
+            else
+            {
+                var button = selections[currentSelectionId].GetComponentInParent<Button>();
+                button.onClick.Invoke();
+                hasSelectedDuringSession = true;
+                setState(UIState.Off);
+                return;
+            }
         }
 
         if (readKey(Key.Digit1) || readKey(Key.Numpad1))
@@ -348,6 +359,7 @@ public class BlackMarketUI : MonoBehaviour
             case UIState.Browser:
                 setButtonPrompt(false);
                 setBrowser(true);
+                hasSelectedDuringSession = false;
                 break;
             default:
                 Debug.LogError("Invalid BlackMarketUI.UIState");
