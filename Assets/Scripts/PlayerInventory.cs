@@ -66,7 +66,7 @@ public class PlayerInventory : MonoBehaviour
                 Debug.DrawRay(raycastOrigin.position, raycastOrigin.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
 
                 pickupPrompt.text = "Press F to pick up " + hit.transform.gameObject.name;
-                if (pickableItem.Price > 0)
+                if (pickableItem.Price > 0 && pickableItem.Type != PickableObject.ObjectType.Money)
                 {
                     pickupPrompt.text = pickupPrompt.text + "\n" + "Price: " + pickableItem.Price.ToString("F2") + "HBC";
                 }
@@ -146,18 +146,27 @@ public class PlayerInventory : MonoBehaviour
         return keyboard.fKey.wasPressedThisFrame;
     }
 
-    private void PickUpItem(GameObject gameObject)
+    private void PickUpItem(GameObject item)
     {
-        var pickableObject = gameObject.GetComponent<PickableObject>();
+        var pickableObject = item.GetComponent<PickableObject>();
 
-        if (hudScript.currentMoney >= pickableObject.Price)
+        if (pickableObject.Type == PickableObject.ObjectType.Money)
         {
-            hudScript.AddMoney(-pickableObject.Price);
-            gameObject.SetActive(false);
-            pickableObject.Price = 0f;
-            pickableObject.IsPicked = true;
-            playerItems.Add(gameObject.GetComponent<PickableObject>());
+            item.SetActive(false);
+            hudScript.AddMoney(pickableObject.Price);
         }
-        Debug.Log("Not enough Hubocoins!");
+        else
+        {
+
+            if (hudScript.currentMoney >= pickableObject.Price)
+            {
+                hudScript.AddMoney(-pickableObject.Price);
+                item.SetActive(false);
+                pickableObject.Price = 0f;
+                pickableObject.IsPicked = true;
+                playerItems.Add(item.GetComponent<PickableObject>());
+            }
+            Debug.Log("Not enough Hubocoins!");
+        }
     }
 }

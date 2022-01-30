@@ -2014,16 +2014,16 @@ MonoBehaviour:
   selectKey: 19
   armButton: {fileID: 2084354643265747090}
   armsForSale: 2
-  armValue: 11
+  armValue: 30
   legButton: {fileID: 6674416219134335964}
   legsForSale: 2
-  legValue: 12
+  legValue: 20
   headButton: {fileID: 827171844982822693}
   headsForSale: 1
-  headValue: 33
+  headValue: 100
   relativeButton: {fileID: 2028004023557628865}
   relativesForSale: 1
-  relativeValue: 112
+  relativeValue: 600
   selections:
   - {fileID: 5540067117310612101}
   - {fileID: 1681314990916154289}

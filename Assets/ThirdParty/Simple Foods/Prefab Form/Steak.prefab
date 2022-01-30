@@ -246,7 +246,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Type: 2
   IsPicked: 0
-  Price: 5
+  Price: 65
 --- !u!1 &4835073247416045348
 GameObject:
   m_ObjectHideFlags: 0

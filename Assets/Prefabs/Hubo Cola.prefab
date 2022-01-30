@@ -98,9 +98,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9134230582fd0cd4cb67a79d440b281f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Type: 0
+  Type: 3
   IsPicked: 0
-  Price: 1000
+  Price: 800
 --- !u!65 &7410830479774336314
 BoxCollider:
   m_ObjectHideFlags: 0
