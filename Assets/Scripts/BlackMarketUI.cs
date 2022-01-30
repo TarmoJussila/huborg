@@ -45,8 +45,7 @@ public class BlackMarketUI : MonoBehaviour
     public int relativesForSale;
     public int relativeValue;
 
-    // Start is called before the first frame update
-    void Start()
+    private void Start()
     {
         armButton.onClick.AddListener(armClick);
         armButton.GetComponentInChildren<TextMeshProUGUI>().text = "Arm\n" + HudScript.CoinsToText(armValue) + " HBC";
@@ -139,8 +138,7 @@ public class BlackMarketUI : MonoBehaviour
         relativeButton.interactable = relativesForSale > 0;
     }
 
-    // Update is called once per frame
-    void Update()
+    private void Update()
     {
         if (!checkAll())
         {
@@ -235,13 +233,13 @@ public class BlackMarketUI : MonoBehaviour
         var keyboard = Keyboard.current;
         if (keyboard == null)
         {
-            Debug.LogError("current keyboard is null");
+            Debug.LogError("Current keyboard is null");
             return false;
         }
         return keyboard[key].wasPressedThisFrame;
     }
 
-    private void setButtonPromt(bool value)
+    private void setButtonPrompt(bool value)
     {
         if (!checkAll())
         {
@@ -288,15 +286,15 @@ public class BlackMarketUI : MonoBehaviour
         switch (newState)
         {
             case UIState.Off:
-                setButtonPromt(false);
+                setButtonPrompt(false);
                 setBrowser(false);
                 break;
             case UIState.Prompt:
-                setButtonPromt(true);
+                setButtonPrompt(true);
                 setBrowser(false);
                 break;
             case UIState.Browser:
-                setButtonPromt(false);
+                setButtonPrompt(false);
                 setBrowser(true);
                 break;
             default:
