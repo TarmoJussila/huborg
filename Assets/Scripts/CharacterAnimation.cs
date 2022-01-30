@@ -56,13 +56,13 @@ public class CharacterAnimation : MonoBehaviour
     {
         if (controller.Speed > 0f)
         {
+            StepSound();
             currentMovementTimer += Time.deltaTime * movementSpeedMultiplier * controller.Speed;
 
             if (currentSpeedMultiplier < 1f)
             {
                 currentSpeedMultiplier += Time.deltaTime * decelerationSpeedMultiplier;
                 currentSpeedMultiplier = Mathf.Min(currentSpeedMultiplier, 1f);
-                StepSound();
             }
         }
         else
@@ -118,6 +118,11 @@ public class CharacterAnimation : MonoBehaviour
         {
             return;
         }
+        if (audioSource.isPlaying)
+        {
+            return;
+        }
+
         int random = Random.Range(0, stepSounds.Length);
         audioSource.PlayOneShot(stepSounds[random]);
     }
