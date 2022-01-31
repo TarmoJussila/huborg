@@ -9,6 +9,8 @@ The game was created in 48 hours during the Global Game Jam / Finnish Game Jam 2
 
 Executable (Windows): [**Download**](https://ggj.s3.amazonaws.com/games/2022/01/184589/exec/52po0/huborg.zip)
 
+Executable (macOS): [**Download**](https://drive.google.com/file/d/1-B6OKSEE60leV0rHKIMIB5NtPPHccsXe/view?usp=sharing)
+
 # Build
 
 The game was created with **Unity 2021.2.9f1**.
